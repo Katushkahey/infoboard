@@ -8,7 +8,9 @@ import org.primefaces.model.chart.PieChartModel;
 import javax.ejb.Startup;
 import javax.ejb.Stateful;
 import javax.enterprise.context.ApplicationScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
@@ -20,7 +22,7 @@ import java.util.List;
 @Named
 @ApplicationScoped
 @Startup
-public class InfoboardView extends AbstractView {
+public class InfoboardView {
 
     private final static ObjectMapper objectMapper = new ObjectMapper();
 
@@ -31,7 +33,7 @@ public class InfoboardView extends AbstractView {
      */
     public List<OrderDto> getTopOrders() throws IOException {
         Client client = ClientBuilder.newClient();
-        WebTarget target = client.target("http://localhost:8081/infoboard/orders");
+        WebTarget target = client.target("http://localhost:8080/infoboard/orders");
         String response = target.request(MediaType.APPLICATION_JSON).get(String.class);
         return objectMapper.readValue(response, new TypeReference<List<OrderDto>>(){});
     }
@@ -43,7 +45,7 @@ public class InfoboardView extends AbstractView {
      */
     public PieChartModel getDriversInfo() throws IOException {
         Client client = ClientBuilder.newClient();
-        WebTarget target = client.target("http://localhost:8081/infoboard/info/drivers");
+        WebTarget target = client.target("http://localhost:8080/infoboard/info/drivers");
         String response = target.request(MediaType.APPLICATION_JSON).get(String.class);
         LinkedHashMap<String, Integer> driverStats = objectMapper.readValue(response, new TypeReference<LinkedHashMap<String, Integer>>(){});
         int totalDrivers = driverStats.values().stream().mapToInt(Integer::intValue).sum();
@@ -65,7 +67,7 @@ public class InfoboardView extends AbstractView {
      */
     public PieChartModel getTrucksInfo() throws IOException {
         Client client = ClientBuilder.newClient();
-        WebTarget target = client.target("http://localhost:8081/infoboard/info/trucks");
+        WebTarget target = client.target("http://localhost:8080/infoboard/info/trucks");
         String response = target.request(MediaType.APPLICATION_JSON).get(String.class);
         LinkedHashMap<String, Integer> truckStats = objectMapper.readValue(response, new TypeReference<LinkedHashMap<String, Integer>>(){});
         int totalTrucks = truckStats.values().stream().mapToInt(Integer::intValue).sum();
@@ -79,4 +81,9 @@ public class InfoboardView extends AbstractView {
 
         return model;
     }
+
+//    protected HttpServletRequest getHttpServletRequest() {
+//        final FacesContext context = FacesContext.getCurrentInstance();
+//        return (HttpServletRequest) context.getExternalContext().getRequest();
+//    }
 }
