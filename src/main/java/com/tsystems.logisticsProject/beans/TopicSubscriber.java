@@ -9,9 +9,10 @@ import java.util.logging.Logger;
 
 @MessageDriven(activationConfig = {
         @ActivationConfigProperty(propertyName = "destination", propertyValue = "LogisticsWebApp.update"),
+        @ActivationConfigProperty (propertyName = "connectionParameters", propertyValue = "host = 127.0.0.1; port = 8161"),
         @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic")
 })
-public class TopicSubscriberBean implements MessageListener {
+public class TopicSubscriber implements MessageListener {
 
     private static final Logger LOG = Logger.getLogger(WebsocketPushBean.class.getName());
 
@@ -20,7 +21,7 @@ public class TopicSubscriberBean implements MessageListener {
 
     @Override
     public void onMessage(Message message) {
-        LOG.info("Received message from LogisticsWebApp.update channel");
+        System.out.println("Received message from LogisticsWebApp.update channel");
         pushBean.pushUpdate();
     }
 }

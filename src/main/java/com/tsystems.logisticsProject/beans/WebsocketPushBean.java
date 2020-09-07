@@ -16,10 +16,10 @@ public class WebsocketPushBean implements Serializable {
 
     @Inject
     @Push(channel = "websocket")
-    private PushContext push;
+    private PushContext pushContext;
 
-    public void pushUpdate() {
-        LOG.info("Pushing notification to jsf");
-        push.send("update");
+    void pushUpdate() {
+        System.out.println("Pushing notification to jsf");
+        pushContext.send("update");
     }
 }

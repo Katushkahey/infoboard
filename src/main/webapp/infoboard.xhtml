@@ -11,21 +11,20 @@
     <h:outputStylesheet library = "css" name="infoboard.css" />
     <h:outputScript>
         function onMessage(message) {
-            location.reload();
+            Location.reload();
         }
     </h:outputScript>
 </h:head>
 <h:body>
-
     <div id="header" class="ui-g-12">
         Infoboard
     </div>
     <div id="main" class="ui-g-12">
         <div id="orders-table" class="ui-g-12 ui-md-12 ui-lg-8">
             <h3>Top orders</h3>
-            <p:dataTable var="order" reflow="true" value="#{infoboardView.topOrders}">
+            <p:dataTable var="order" value="#{infoboardView.topOrders}">
                 <p:column headerText="Number">
-                    <h:outputText value="#{order.orderNumber}" />
+                    <h:outputText value="#{order.number}" />
                 </p:column>
                 <p:column headerText="CityFrom">
                     <h:outputText value="#{order.startedCity}" />
@@ -43,7 +42,7 @@
                 <p:chart type="pie" styleClass="side-chart" model="#{infoboardView.driversInfo}"/>
             </div>
             <div class="ui-g-12 ui-md-6 ui-lg-12">
-                <p:chart type="pie" styleClass="side-chart" model="#{infoboardView.trucksInfo}"  />
+                <p:chart type="pie" styleClass="side-chart" model="#{infoboardView.trucksInfo}"/>
             </div>
         </div>
     </div>
@@ -51,7 +50,7 @@
         <h:outputText value="Infoboard" />
     </div>
 
-    <f:websocket channel="websocket" onmessage="onMessage"/>
+    <f:websocket channel="websocket" onMessage="onMessage" />
 
 </h:body>
 </html>

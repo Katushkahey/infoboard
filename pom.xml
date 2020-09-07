@@ -19,6 +19,7 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <version.compiler.plugin>3.8.1</version.compiler.plugin>
     <wildfly.plugin.version>2.0.2.Final</wildfly.plugin.version>
+    <jackson.version>1.9.13</jackson.version>
   </properties>
 
   <repositories>
@@ -33,7 +34,7 @@
     <dependency>
       <groupId>javax</groupId>
       <artifactId>javaee-api</artifactId>
-      <version>8.0</version>
+      <version>8.0.1</version>
     </dependency>
     <dependency>
       <groupId>javax.faces</groupId>
@@ -71,17 +72,27 @@
     <dependency>
       <groupId>org.codehaus.jackson</groupId>
       <artifactId>jackson-core-asl</artifactId>
-      <version>1.9.13</version>
+      <version>${jackson.version}</version>
     </dependency>
     <dependency>
       <groupId>org.codehaus.jackson</groupId>
       <artifactId>jackson-mapper-asl</artifactId>
-      <version>1.9.13</version>
+      <version>${jackson.version}</version>
     </dependency>
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <version>1.18.12</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.activemq</groupId>
+      <artifactId>activemq-core</artifactId>
+      <version>5.7.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.activemq</groupId>
+      <artifactId>activemq-client</artifactId>
+      <version>5.16.0</version>
     </dependency>
     <dependency>
       <groupId>org.hibernate.javax.persistence</groupId>

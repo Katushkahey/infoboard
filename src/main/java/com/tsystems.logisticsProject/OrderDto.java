@@ -11,7 +11,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class OrderDto implements Serializable {
 
-    private String orderNumber;
+    private String number;
     private String startedCity;
     private String finishedCity;
     private String status;

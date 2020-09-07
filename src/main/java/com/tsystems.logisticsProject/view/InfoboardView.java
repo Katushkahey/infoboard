@@ -8,9 +8,7 @@ import org.primefaces.model.chart.PieChartModel;
 import javax.ejb.Startup;
 import javax.ejb.Stateful;
 import javax.enterprise.context.ApplicationScoped;
-import javax.faces.context.FacesContext;
 import javax.inject.Named;
-import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
@@ -22,6 +20,7 @@ import java.util.List;
 @Named
 @ApplicationScoped
 @Startup
+@Stateful
 public class InfoboardView {
 
     private final static ObjectMapper objectMapper = new ObjectMapper();
@@ -47,11 +46,12 @@ public class InfoboardView {
         Client client = ClientBuilder.newClient();
         WebTarget target = client.target("http://localhost:8080/infoboard/info/drivers");
         String response = target.request(MediaType.APPLICATION_JSON).get(String.class);
-        LinkedHashMap<String, Integer> driverStats = objectMapper.readValue(response, new TypeReference<LinkedHashMap<String, Integer>>(){});
-        int totalDrivers = driverStats.values().stream().mapToInt(Integer::intValue).sum();
+        LinkedHashMap<String, Integer> driversInfo = objectMapper.readValue(response,
+                new TypeReference<LinkedHashMap<String, Integer>>(){});
+        int totalDrivers = driversInfo.values().stream().mapToInt(Integer::intValue).sum();
 
         PieChartModel model = new PieChartModel();
-        driverStats.forEach(model::set);
+        driversInfo.forEach(model::set);
         model.setTitle(String.format("Drivers (total %d)", totalDrivers));
         model.setShowDataLabels(true);
         model.setLegendPosition("w");
@@ -59,21 +59,16 @@ public class InfoboardView {
 
         return model;
     }
-
-    /**
-     * gets truck statistics from rest api and builds a donut chart model
-     * @return donut chart model
-     * @throws IOException for errors parsing the rest api response
-     */
     public PieChartModel getTrucksInfo() throws IOException {
         Client client = ClientBuilder.newClient();
         WebTarget target = client.target("http://localhost:8080/infoboard/info/trucks");
         String response = target.request(MediaType.APPLICATION_JSON).get(String.class);
-        LinkedHashMap<String, Integer> truckStats = objectMapper.readValue(response, new TypeReference<LinkedHashMap<String, Integer>>(){});
-        int totalTrucks = truckStats.values().stream().mapToInt(Integer::intValue).sum();
+        LinkedHashMap<String, Integer> trucksInfo = objectMapper.readValue(response,
+                new TypeReference<LinkedHashMap<String, Integer>>(){});
+        int totalTrucks = trucksInfo.values().stream().mapToInt(Integer::intValue).sum();
 
         PieChartModel model = new PieChartModel();
-        truckStats.forEach(model::set);
+        trucksInfo.forEach(model::set);
         model.setTitle(String.format("Trucks (total %d)", totalTrucks));
         model.setShowDataLabels(true);
         model.setLegendPosition("w");
@@ -81,9 +76,4 @@ public class InfoboardView {
 
         return model;
     }
-
-//    protected HttpServletRequest getHttpServletRequest() {
-//        final FacesContext context = FacesContext.getCurrentInstance();
-//        return (HttpServletRequest) context.getExternalContext().getRequest();
-//    }
 }
