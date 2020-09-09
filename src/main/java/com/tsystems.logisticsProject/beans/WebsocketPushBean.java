@@ -1,18 +1,23 @@
 package com.tsystems.logisticsProject.beans;
 
+import javax.ejb.LocalBean;
+import javax.ejb.Stateful;
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.push.Push;
 import javax.faces.push.PushContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.logging.Logger;
+import java.util.Collection;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.Future;
 
-@Named
-@ApplicationScoped
+@Stateful
+@LocalBean
 public class WebsocketPushBean implements Serializable {
-
-    private static final Logger LOG = Logger.getLogger(WebsocketPushBean.class.getName());
+//
+//    private static final Logger LOG = Logger.getLogger(WebsocketPushBean.class.getName());
 
     @Inject
     @Push(channel = "websocket")
@@ -23,3 +28,4 @@ public class WebsocketPushBean implements Serializable {
         pushContext.send("update");
     }
 }
+

@@ -1,6 +1,7 @@
 package com.tsystems.logisticsProject.view;
 
 import com.tsystems.logisticsProject.OrderDto;
+import com.tsystems.logisticsProject.beans.JMSConsumer;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 import org.primefaces.model.chart.PieChartModel;
@@ -20,10 +21,14 @@ import java.util.List;
 @Named
 @ApplicationScoped
 @Startup
-@Stateful
 public class InfoboardView {
 
     private final static ObjectMapper objectMapper = new ObjectMapper();
+
+    public InfoboardView() {
+        JMSConsumer consumer = new JMSConsumer();
+        consumer.consume();
+    }
 
     /**
      * gets list of latest orders from rest api

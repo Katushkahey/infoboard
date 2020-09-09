@@ -22,14 +22,6 @@
     <jackson.version>1.9.13</jackson.version>
   </properties>
 
-  <repositories>
-    <repository>
-      <id>primefaces</id>
-      <name>Primefaces Repository</name>
-      <url>https://repository.primefaces.org</url>
-    </repository>
-  </repositories>
-
   <dependencies>
     <dependency>
       <groupId>javax</groupId>
@@ -51,17 +43,6 @@
       <groupId>org.primefaces</groupId>
       <artifactId>primefaces</artifactId>
       <version>6.2</version>
-    </dependency>
-    <dependency>
-      <groupId>org.primefaces.themes</groupId>
-      <artifactId>bootstrap</artifactId>
-      <version>1.0.10</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.spec.javax.ejb</groupId>
-      <artifactId>jboss-ejb-api_3.2_spec</artifactId>
-      <version>2.0.0.Final</version>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.jboss.spec.javax.faces</groupId>
@@ -95,9 +76,9 @@
       <version>5.16.0</version>
     </dependency>
     <dependency>
-      <groupId>org.hibernate.javax.persistence</groupId>
-      <artifactId>hibernate-jpa-2.1-api</artifactId>
-      <version>1.0.0.Final</version>
+      <groupId>org.jboss.ejb3</groupId>
+      <artifactId>jboss-ejb3-ext-api</artifactId>
+      <version>2.3.0.Final</version>
     </dependency>
   </dependencies>
 
@@ -116,40 +97,6 @@
         <groupId>org.wildfly.plugins</groupId>
         <artifactId>wildfly-maven-plugin</artifactId>
         <version>${wildfly.plugin.version}</version>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-war-plugin</artifactId>
-        <version>3.2.0</version>
-        <configuration>
-          <failOnMissingWebXml>false</failOnMissingWebXml>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.cargo</groupId>
-        <artifactId>cargo-maven2-plugin</artifactId>
-        <version>1.8.0</version>
-        <configuration>
-          <container>
-            <containerId>wildfly20x</containerId>
-            <home>C:\Users\Ilya\wildfly-20.0.1.Final\standalone</home>
-          </container>
-          <configuration>
-            <type>existing</type>
-            <home>C:\Users\Ilya\wildfly-20.0.1.Final\standalone</home>
-          </configuration>
-          <deployables>
-
-            <deployable>
-              <groupId>${project.groupId}</groupId>
-              <artifactId>${project.artifactId}</artifactId>
-              <type>war</type>
-              <properties>
-                <context>${project.build.finalName}</context>
-              </properties>
-            </deployable>
-          </deployables>
-        </configuration>
       </plugin>
     </plugins>
   </build>
