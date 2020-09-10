@@ -6,10 +6,12 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 import org.primefaces.model.chart.PieChartModel;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.Startup;
-import javax.ejb.Stateful;
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
@@ -20,19 +22,24 @@ import java.util.List;
 
 @Named
 @ApplicationScoped
-@Startup
 public class InfoboardView {
 
     private final static ObjectMapper objectMapper = new ObjectMapper();
+    private JMSConsumer jmsConsumer;
 
-    public InfoboardView() {
-        JMSConsumer consumer = new JMSConsumer();
-        consumer.consume();
+    @Inject
+    public InfoboardView(JMSConsumer jmsConsumer) {
+        this.jmsConsumer = jmsConsumer;
+    }
+
+    @PostConstruct
+    public void init() {
+        jmsConsumer.consume();
     }
 
     /**
-     * gets list of latest orders from rest api
-     * @return list of latest orders
+     * gets list of top orders from rest api
+     * @return list of top orders
      * @throws IOException for errors parsing the rest api response
      */
     public List<OrderDto> getTopOrders() throws IOException {
@@ -43,8 +50,8 @@ public class InfoboardView {
     }
 
     /**
-     * gets driver statistics from rest api and builds a donut chart model
-     * @return donut chart model
+     * gets driver statistics from rest api and builds a pie chart model
+     * @return pie chart model
      * @throws IOException for errors parsing the rest api response
      */
     public PieChartModel getDriversInfo() throws IOException {

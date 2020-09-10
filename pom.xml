@@ -30,8 +30,8 @@
     </dependency>
     <dependency>
       <groupId>javax.faces</groupId>
-      <artifactId>jsf-api</artifactId>
-      <version>2.1</version>
+      <artifactId>javax.faces-api</artifactId>
+      <version>2.3</version>
     </dependency>
     <dependency>
       <groupId>javax.enterprise</groupId>
@@ -49,7 +49,18 @@
       <artifactId>jboss-jsf-api_2.3_spec</artifactId>
       <version>3.0.0.Final</version>
     </dependency>
-
+    <dependency>
+      <groupId>org.wildfly</groupId>
+      <artifactId>wildfly-jsf</artifactId>
+      <version>15.0.0.Final</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>4.0.1</version>
+      <scope>provided</scope>
+    </dependency>
     <dependency>
       <groupId>org.codehaus.jackson</groupId>
       <artifactId>jackson-core-asl</artifactId>
@@ -79,6 +90,16 @@
       <groupId>org.jboss.ejb3</groupId>
       <artifactId>jboss-ejb3-ext-api</artifactId>
       <version>2.3.0.Final</version>
+    </dependency>
+    <dependency>
+      <groupId>javax</groupId>
+      <artifactId>javaee-api</artifactId>
+      <version>8.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.omnifaces</groupId>
+      <artifactId>omnifaces</artifactId>
+      <version>3.3.1</version>
     </dependency>
   </dependencies>
 
