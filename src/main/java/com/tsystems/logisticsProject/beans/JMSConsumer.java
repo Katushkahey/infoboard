@@ -11,7 +11,8 @@ import javax.jms.*;
 @Named
 public class JMSConsumer {
 
-    private String URL = "tcp://localhost:61616";
+    private final String URL = ActiveMQConnectionFactory.DEFAULT_BROKER_BIND_URL;
+    private final String TOPIC = "ActiveMQ.Advisory.Producer.Topic.LogisticsWebApp.update";
 
     @Inject
     private TopicSubscriber topicSubscriber;
@@ -22,10 +23,11 @@ public class JMSConsumer {
             Connection connection = factory.createConnection();
             connection.start();
             Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-            Topic topic = session.createTopic("ActiveMQ.Advisory.Producer.Topic.LogisticsWebApp.update");
+            Topic topic = session.createTopic(TOPIC);
             MessageConsumer consumer = session.createConsumer(topic);
             consumer.setMessageListener(topicSubscriber);
         } catch (JMSException exp) {
+            exp.printStackTrace();
         }
     }
 }
