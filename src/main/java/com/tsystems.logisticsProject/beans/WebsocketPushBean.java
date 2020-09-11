@@ -16,6 +16,6 @@ public class WebsocketPushBean implements Serializable {
     public PushContext pushContext;
 
     public void sendMessage() {
-        pushContext.send("hello");
+        pushContext.send("update");
     }
 }
