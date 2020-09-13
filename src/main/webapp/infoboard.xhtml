@@ -10,8 +10,9 @@
     <title>Infoboard</title>
     <h:outputStylesheet library = "css" name="infoboard.css" />
     <h:outputScript>
-        function onMessage(message) {
-            Location.reload();
+        function onMessage(String) {
+            window.location.reload();
+            console.log(String);
         }
     </h:outputScript>
 </h:head>
