@@ -6,6 +6,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.jms.*;
+import java.util.logging.Logger;
 
 @ApplicationScoped
 @Named
@@ -13,6 +14,7 @@ public class JMSConsumer {
 
     private final String URL = ActiveMQConnectionFactory.DEFAULT_BROKER_BIND_URL;
     private final String TOPIC = "ActiveMQ.Advisory.Producer.Topic.LogisticsWebApp.update";
+    private static final Logger LOG = Logger.getLogger(JMSConsumer.class.getName());
 
     @Inject
     private TopicSubscriber topicSubscriber;
@@ -27,7 +29,7 @@ public class JMSConsumer {
             MessageConsumer consumer = session.createConsumer(topic);
             consumer.setMessageListener(topicSubscriber);
         } catch (JMSException exp) {
-            exp.printStackTrace();
+            LOG.warning("JMS commection exception " + exp.getMessage());
         }
     }
 }
